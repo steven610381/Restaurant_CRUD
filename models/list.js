@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema=mongoose.Schema
+//define data structure
 const listSchema=new Schema(
   {id:Number,require:true},
   {name:String,require:true},
