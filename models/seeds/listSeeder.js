@@ -11,7 +11,4 @@ db.on('error', () => {
 db.once('open', () => {
   list.insertMany(restaurants.results)
   console.log('db connected')
-  // for (let i = 0; i < restList.results.length; i++) {
-  //   Restaurant.create(restList.results[i])
-  // }
 })
