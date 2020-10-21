@@ -46,7 +46,8 @@ app.get('/restaurants/create', (req, res) => {
 app.post('/restaurants', (req, res) => {
   const restaurant = req.body
   return List.create(restaurant)
-    .then(() => res.redirect('/'))
+    .then(restaurants => res.render('index',{restaurants}))
+    .then(()=>res.redirect('/'))
     .catch(error => console.log(error))
 })
 
@@ -76,8 +77,19 @@ app.post('/restaurants/:restaurant_id/edit', (req, res) => {
     .then(restaurant => {
       console.log('restaurant',restaurant)
       restaurant = Object.assign(restaurant, req.body)
+      //req.body收到的內容格式與restaurant不同，所以用Object.assign覆蓋內容
       return restaurant.save()
     })
     .then(() => res.redirect(`/restaurants/${id}`))
+    .catch(error => console.log(error))
+})
+
+app.post("/restaurants/:restaurant_id/delete",(req,res)=>{
+  const id = req.params.restaurant_id
+  console.log('id',id)
+  console.log('req',req.body)
+  return List.findById(id)
+    .then(restaurants => restaurants.remove())
+    .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })

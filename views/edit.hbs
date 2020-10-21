@@ -5,11 +5,13 @@
         <label for="">名字</label>
         <input type="text" class="form-control" name="name" value="{{restaurant.name}}">
       </div>
+
       <div class="form-group col-md-6">
         <label for="">English Name</label>
         <input type="text" class="form-control" name="name_en" value="{{restaurant.name_en}}">
       </div>
     </div>
+
     <div class="form-row">
       <div class="form-group col-md-3">
         <label for="exampleFormControlSelect1">餐廳類型</label>
@@ -23,6 +25,7 @@
           <option>其他</option>
         </select>
       </div>
+
       <div class="form-group col-md-3">
         <label for="">Rating</label>
         <input type="number" class="form-control" name="rating" step="0.1" min="1" max="5" value="{{restaurant.rating}}">
@@ -53,6 +56,8 @@
       <label for="exampleFormControlTextarea1">產品描述</label>
       <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description">{{restaurant.description}}</textarea>
     </div>
+
     <button type="submit" class="btn btn-primary">Save</button>
+
   </form>
 </div>
