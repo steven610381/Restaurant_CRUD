@@ -40,6 +40,14 @@ app.get('/restaurants/create', (req, res) => {
   return res.render('create')
 })
 
+app.post('/restaurants', (req, res) => {
+  const restaurant = req.body
+  console.log(req.body)
+  return List.create(restaurant)     
+    .then(() => res.redirect('/')) 
+    .catch(error => console.log(error))
+})
+
 app.get('/restaurants/:restaurant_id', (req, res) => {
   console.log(req.params)
   const id = req.params.restaurant_id
