@@ -29,6 +29,7 @@ db.once('open', () => {
   console.log('db connected')
 })
 
+//render
 app.get('/', (req, res) => {
   List.find()
     .lean()
@@ -36,23 +37,47 @@ app.get('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// route of creation
 app.get('/restaurants/create', (req, res) => {
   return res.render('create')
 })
 
+
 app.post('/restaurants', (req, res) => {
   const restaurant = req.body
-  console.log(req.body)
-  return List.create(restaurant)     
-    .then(() => res.redirect('/')) 
+  return List.create(restaurant)
+    .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
+//route of reading
 app.get('/restaurants/:restaurant_id', (req, res) => {
-  console.log(req.params)
+  // console.log(req.params)
   const id = req.params.restaurant_id
   return List.findById(id)
     .lean()
     .then((restaurant) => res.render('show', { restaurant }))
+    .catch(error => console.log(error))
+})
+
+//route of editing
+app.get('/restaurants/:restaurant_id/edit', (req, res) => {
+  const id = req.params.restaurant_id
+  return List.findById(id)
+    .lean()
+    .then((restaurant) =>
+      res.render('edit', { restaurant }))
+    .catch(error => console.log(error))
+})
+
+app.post('/restaurants/:restaurant_id/edit', (req, res) => {
+  const id = req.params.restaurant_id
+  return List.findById(id)
+    .then(restaurant => {
+      console.log('restaurant',restaurant)
+      restaurant = Object.assign(restaurant, req.body)
+      return restaurant.save()
+    })
+    .then(() => res.redirect(`/restaurants/${id}`))
     .catch(error => console.log(error))
 })
